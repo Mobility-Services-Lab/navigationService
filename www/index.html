@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>My new map app</title>
+
+    <link rel="manifest" href="manifest.json">
+
+
+    
+    
+    
+    
+<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com *.ionic.io *.openstreetmap.org; style-src 'self' 'unsafe-inline'; media-src *; img-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://nominatim.openstreetmap.org/">-->
+    <meta http-equiv='Content-Security-Policy', content="default-src 'self'; frame-src 'self' gap://ready 'unsafe-inline'; font-src 'self' * 'unsafe-inline'; style-src 'self' * 'unsafe-inline'; img-src 'self' * 'unsafe-inline'; script-src 'self' * 'unsafe-inline' 'unsafe-eval'; connect-src 'self' *">
+    <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <link rel="stylesheet" href="css/leaflet-routing-machine.css" />
+   
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+     <script src="lib/leaflet/leaflet.js"></script>
+
+  <script src="lib/leaflet/angular-leaflet-directive.min.js"></script>
+  <script src="lib/leaflet/dist/ui-leaflet_dev_mapped.js"></script>
+  <script src="lib/angular-simple-logger/dist/angular-simple-logger.js"></script>
+
+ 
+    <!-- cordova script (this will be a 404 during development) -->
+     <script src="lib/ng-cordova.min.js"></script>
+     <script src="js/ng-cordova.min.js"></script>
+    <script src="cordova.js"></script>
+    
+
+    <script src="lib/graphhopper/GHUtil.js"></script>
+    <script src="lib/graphhopper/GraphHopperRouting.js"></script>
+
+    <script src="lib/graphhopper/jquery-2.1.0.min.js"></script>
+
+    
+    <script src="lib/leaflet/lrm-graphhopper.js"></script>
+
+    
+  <script src="lib/leaflet/leaflet-routing-machine.js"></script>
+
+    <!-- your app's js -->
+    
+     <script src="js/app.js"></script>
+     <script src="js/addressSearchCtrl.js"></script> 
+     <script src="js/route.js"></script>
+     <script src="js/mathUtils.js"></script>
+     <script src="js/zoomLevel.js"></script>
+     <script src="js/geocoder.js"></script>
+     <script src="js/arrowService.js"></script>
+  </head>
+  <body ng-app="starter">
+      
+      <ion-content ng-controller="FindAddressController"  ng-show="showInputField" class="autocomplete-container" ng-style="{'height': customHeight}">
+        <div class="autocomplete-textfield-container" ng-show="showInputField" >
+          <form ng-submit="find()" >
+            <label class="item item-input" > 
+              <i class="icon ion-search placeholder-icon"></i> 
+              <input id="address" ng-model="address"  type="search"  placeholder="Search address">
+            </label>        
+          </form>
+        </div>
+         <div class="autocomplete-label-container" ng-style="{'height': customLabelHeight}">
+         <ion-content>
+                   <ion-list>
+                  <ion-item ng-repeat="item in addressDisplayItems track by $index" class="item" ng-click="selectItem($index)">
+                    {{item}}
+                  </ion-item>
+                   </ion-list>
+           </ion-content>
+           </div>
+      </ion-content>
+    
+    
+      <ion-content ng-controller="BasicLFCenterController" > 
+        <div class="text-instructions" ng-bind='currentInstruction' ng-show="showInstructionText"></div>
+        <img src='{{arrowSrc}}' image ng-show="showArrow">
+        <div class="text" ng-bind='infos'></div>
+        <div class="text-route-infos" ng-bind='routingInfos'></div>
+        <div class="text-speed-info" ng-bind="speedText" ng-show="false"></div>
+        <button ion-button ng-click="editDestination()"  ng-show="showEditDestinationButton" class="left-button">Edit Destination</button>
+        <button ion-button ng-click="route()" ng-show="showRouteButton" class="right-button">Calculate Route</button>
+        <button ion-button ng-click="startRoute()" ng-show="showStartRouteButton" class="right-button">Start Routing</button>
+        <button ion-button ng-click="deleteRoute()" ng-show="showDeleteRouteButton" class="delete-button">Delete Route</button>
+        <button ion-button ng-click="initcurrentPosition()" ng-show="showCurButton" >InitPosition</button>
+        <button ion-button ng-click="abortRouting()" ng-show="showAbortRoutingButton" class="abort-button">Abort Routing</button>
+        <div id='map' class="map" data-tap-disabled="true" ></div>       
+        
+      </ion-content>
+    
+  </body>
+</html>

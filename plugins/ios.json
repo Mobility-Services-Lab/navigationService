@@ -1,0 +1,43 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "tumMapApp"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "tumMapApp"
+        },
+        "cordova-plugin-device-orientation": {
+            "PACKAGE_NAME": "tumMapApp"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "tumMapApp"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "tumMapApp"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "tumMapApp"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "tumMapApp"
+        },
+        "cordova.plugins.diagnostic": {
+            "PACKAGE_NAME": "tumMapApp"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "tumMapApp"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "tumMapApp"
+        }
+    }
+}

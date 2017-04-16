@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ion-autocomplete-sample">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ion-autocomplete end to end test page</title>
+
+    <link rel="stylesheet" href="../../bower_components/ionic/css/ionic.css">
+    <link rel="stylesheet" type="text/css" href="../../src/ion-autocomplete.css"/>
+
+    <script src="../../bower_components/ionic/js/ionic.bundle.js"></script>
+    <script src="../../src/ion-autocomplete.js"></script>
+    <script type="text/javascript">
+        var app = angular.module('ion-autocomplete-sample', ['ionic', 'ion-autocomplete'])
+                .controller('IonAutocompleteController', function ($scope) {
+
+                    $scope.model = [];
+                    $scope.externalModel = ['test1', 'test2'];
+                    $scope.preselectedSearchItems = [
+                        {id: "1", name: "1", view: "view: 1"},
+                        {id: "2", name: "2", view: "view: 2"}];
+                    $scope.selectedItems = [];
+
+                    $scope.callbackValueModel = "";
+
+                    $scope.getItemFromModelValue = function (modelValue) {
+                        return {
+                            id: modelValue,
+                            name: modelValue,
+                            view: "view: " + modelValue
+                        }
+                    };
+
+                    $scope.getTestItems = function (query, isInitializing) {
+                        if (isInitializing) {
+                            return {items: []}
+                        } else {
+                            return {
+                                items: [
+                                    {id: "1", name: query + "1", view: "view: " + query + "1"},
+                                    {id: "2", name: query + "2", view: "view: " + query + "2"},
+                                    {id: "3", name: query + "3", view: "view: " + query + "3"}]
+                            };
+                        }
+                    };
+
+                    $scope.itemsClicked = function (callback) {
+                        $scope.callbackValueModel = callback;
+                    };
+
+                    $scope.clearModel = function () {
+                        $scope.externalModel = [];
+                    }
+                });
+    </script>
+</head>
+
+<body ng-controller="IonAutocompleteController">
+<ion-view title="ion-autocomplete sample">
+    <ion-content>
+        <form>
+
+            <label class="item item-input">
+                <span class="input-label">Multiple select autocomplete</span>
+                <input ion-autocomplete type="text" readonly="readonly" class="ion-autocomplete" autocomplete="off"
+                       ng-model="model"
+                       search-items="preselectedSearchItems"
+                       item-value-key="name"
+                       item-view-value-key="view"
+                       items-method="getTestItems(query, isInitializing)"
+                       items-method-value-key="items"
+                       placeholder="Enter test query ..."
+                       items-clicked-method="itemsClicked(callback)"
+                       model-to-item-method="getItemFromModelValue(modelValue)"
+                       selected-items="selectedItems"
+                       external-model="externalModel"/>
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">Multiple select autocomplete model value</span>
+                <input type="text" class="ion-autocomplete-test-model" ng-model="model" autocomplete="off">
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">Multiple select autocomplete external model value</span>
+                <input type="text" class="ion-autocomplete-external-model" ng-model="externalModel"
+                       autocomplete="off">
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">Multiple select autocomplete clicked item callback model value</span>
+                <input type="text" class="ion-autocomplete-callback-model" ng-model="callbackValueModel"
+                       autocomplete="off">
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">Search items</span>
+                <input type="text" class="ion-autocomplete-search-items-model" ng-model="preselectedSearchItems"
+                       autocomplete="off">
+            </label>
+        </form>
+        <button class="ion-autocomplete-clear-button" ng-click="clearModel()">
+            Clear items
+        </button>
+    </ion-content>
+</ion-view>
+</body>
+</html>
