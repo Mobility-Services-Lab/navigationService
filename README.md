@@ -31,11 +31,15 @@ Now you can run the project:
 To build the ios platform run the following command with the Ionic Framework:
 
 `ionic platform add ios`
+
 Then build the iOS package:
 
 `ionic build ios`
+
 There is one thing you need to change in the iOS project, because there is set default distance filter of 5 meter. The problem with that is, that we don't get new locations unless the user moves be more than 5 meters. However if the user is waiting at a red traffic signal we get a timeout and to avoid that you need to do the following:
 
 Go into the XCode-Project in /platforms/ios/. 
+
 With the project opened search for the "CDVLocation.m" file. 
+
 This file has a method called "(void) startLocation:(BOOL)highAccuracy". Look for the if-case "if(enabledHighAccuracy)" and set the "self.location.distanceFilter = 5;" to "self.location.distanceFilter = kCLDistanceFilterNone;"
